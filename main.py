@@ -16,7 +16,7 @@ def main():
     for row in spans:
         row = str(row)
         course = re.findall(r'[A-Z][A-Z]\s\d\d\d', row)
-        name = re.findall(r'(?<=\t)[A-Z].+\s[A-Z].+(?=[^A-Z])', row)
+        name = re.findall(r'(?<=\t)[A-Z].+\s(?= )', row)
         print(name)
 
 
