@@ -17,7 +17,9 @@ def main():
         row = str(row)
         course = re.findall(r'[A-Z][A-Z]\s\d\d\d', row)
         name = re.findall(r'(?<=\t)[A-Z].+\s(?= )', row)
-        print(name)
+        credits = re.findall(r'(?<= )[12345]\.[0]', row)
+        if (len(credits) != 0):
+            print(credits)
 
 
 if __name__ == "__main__":
