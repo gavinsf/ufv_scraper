@@ -10,16 +10,32 @@ def main():
     html = page.read().decode("latin-1")
     soup = BeautifulSoup(html, "html.parser")
 
-    spans = soup.find_all("span")
-
-    arr = []
-    for row in spans:
+    splits = re.split(r'-----------------------------------------------------------------------------------------------------------------------------------', str(soup))
+    for row in splits:
         row = str(row)
-        course = re.findall(r'[A-Z][A-Z]\s\d\d\d', row)
-        name = re.findall(r'(?<=\t)[A-Z].+\s(?= )', row)
-        credits = re.findall(r'(?<= )[12345]\.[0]', row)
-        if (len(credits) != 0):
-            print(credits)
+        course = re.findall(r'[A-Z]+\s\d\d\d[A-Z]*', row)
+        if (len(course) != 0):
+            if (course[0].startswith("ABA") 
+                or course[0].startswith("ABB") 
+                or course[0].startswith("ABC") 
+                or course[0].startswith("ABD")
+                or course[0].startswith("ABE")
+                or course[0].startswith("ABF")
+                or course[0].startswith("ABH")
+                or course[0].startswith("CEPA")
+                or course[0].startswith("CEPV")):
+                course = []
+            else:
+                course = course[0]
+                
+        if (len(course) != 0):
+            print(course)
+        #name = re.findall(r'(?<=\t)[A-Z].+\s(?= )', row)
+        #credits = re.findall(r'(?<= )[12345]\.[0]', row)
+        
+            
+
+        
 
 
 if __name__ == "__main__":
