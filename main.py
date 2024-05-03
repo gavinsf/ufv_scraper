@@ -27,11 +27,15 @@ def main():
                 or course[0].startswith("CEPV")):
                 course = []
             else:
-                course = course[0]
-        '''        
+                course = course[0]    
         name = re.findall(r'(?<=\d\d\d\s\t)[A-Z].+(?=\s\d\.\d)', row)
-        
-        #credits = re.findall(r'(?<= )[12345]\.[0]', row)
+        ''' 
+
+        credits = re.findall(r'(?<=\s)[ 123456789]\.[05]', row)
+        if (len(credits) == 0):
+            credits = "No Credits"
+        elif (len(credits) >= 1):
+            credits = credits[0]
         
             
 
