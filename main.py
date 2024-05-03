@@ -13,6 +13,7 @@ def main():
     splits = re.split(r'-----------------------------------------------------------------------------------------------------------------------------------', str(soup))
     for row in splits:
         row = str(row)
+        '''
         course = re.findall(r'[A-Z]+\s\d\d\d[A-Z]*', row)
         if (len(course) != 0):
             if (course[0].startswith("ABA") 
@@ -27,10 +28,9 @@ def main():
                 course = []
             else:
                 course = course[0]
-                
-        if (len(course) != 0):
-            print(course)
-        #name = re.findall(r'(?<=\t)[A-Z].+\s(?= )', row)
+        '''        
+        name = re.findall(r'(?<=\d\d\d\s\t)[A-Z].+(?=\s\d\.\d)', row)
+        
         #credits = re.findall(r'(?<= )[12345]\.[0]', row)
         
             
