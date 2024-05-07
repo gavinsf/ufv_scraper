@@ -10,15 +10,14 @@ def main():
     html = page.read().decode("latin-1")
     soup = BeautifulSoup(html, "html.parser")
 
-    splits = re.split(r'-----------------------------------------------------------------------------------------------------------------------------------', str(soup))
+    splits = re.split(r'[-]+', str(soup))
     for row in splits:
         row_parser(row)
         
             
 def row_parser(row):
-
     row = str(row)
-'''
+    '''
     course = re.findall(r'[A-Z]+\s\d\d\d[A-Z]*', row)
     if (len(course) != 0):
         if (course[0].startswith("ABA") 
@@ -39,8 +38,13 @@ def row_parser(row):
         credits = "No Credits"
     elif (len(credits) >= 1):
         credits = credits[0]
-
-        '''         
+        '''       
+    prereqs = re.findall(r'(?<=Prerequisite\(s\):)[\s\S]+(?=Corequisite\(s\):)', row)
+    if (len(prereqs) != 0):
+        prereqs[0] = prereqs[0].replace('\t', '')
+        prereqs[0] = prereqs[0].replace('\r', ' ')
+        prereqs = prereqs[0].replace('\n', '')
+        print(prereqs, "\n\n")
 
 
 if __name__ == "__main__":
