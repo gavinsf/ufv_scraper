@@ -9,7 +9,7 @@ def get_vars():
     html = page.read().decode("latin-1")
     soup = BeautifulSoup(html, "html.parser")
 
-    splits = re.split(r'[-]+', str(soup))
+    splits = re.split(r'[-]{10,}', str(soup))
     for row in splits:
         row_parser(row)
 
@@ -43,3 +43,8 @@ def row_parser(row):
         prereqs[0] = prereqs[0].replace('\r', ' ')
         prereqs = prereqs[0].replace('\n', '')
 
+    coreqs = re.findall(r'(?<=Corequisite\(s\):)[\s\S]+(?=Pre- or corequisite\(s\):)', row)
+    if (len(coreqs) != 0):
+        coreqs[0] = coreqs[0].replace('\t', '')
+        coreqs[0] = coreqs[0].replace('\r', ' ')
+        coreqs = coreqs[0].replace('\n', '')
